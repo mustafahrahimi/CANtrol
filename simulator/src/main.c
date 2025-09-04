@@ -22,7 +22,7 @@ int main() {
     }
 
     CANFrame bad_frame = {
-        .id = 0xFFFF,    // Invalid: > 11-bit
+        .id = 0xFFFE,    // Invalid: > 11-bit
         .dlc = 10        // Invalid DLC
     };
 
