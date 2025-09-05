@@ -1,36 +1,48 @@
-#include <stdio.h>
 #include "logger.h"
 #include "can_frame.h"
+#include "can_bus.h"
+#include "can_node.h"
+
+static void custom_receive(CANNode* node, const CANFrame* frame) {
+    logger_log(LOG_INFO, 
+        "[Custom Callback] Node %u got frame ID=0x%03X", 
+        node->node_id, 
+        frame->id);
+    node->frames_received++;
+}
 
 int main() {
     logger_init(LOG_DEBUG);
 
-    logger_log(LOG_INFO, "Starting CANtrol basic test...");
-    logger_log(LOG_DEBUG, "Logger is working fine");
+    CANBus bus;
+    can_bus_init(&bus);
+
+    CANNode node1;
+    CANNode node2;
+
+    node_init(&node1, 1, &bus);
+    node_init(&node2, 2, &bus);
+
+    // Override node2 callback
+    node2.on_receive = custom_receive;
+
+    can_bus_add_node(&bus, &node1);
+    can_bus_add_node(&bus, &node2);
 
     CANFrame frame = {
-        .id = 0x123,
-        .dlc = 4,
-        .data = {0x10, 0x20, 0x30, 0x40},
+        .id = 0x100,
+        .dlc = 3,
+        .data = {0xAA, 0xBB, 0xCC},
         .rtr = false
     };
 
-    if (can_frame_validate(&frame)) {
-        logger_log(LOG_INFO, "Frame valid! ID=0x%03X DLC=%d", frame.id, frame.dlc);
-    } else {
-        logger_log(LOG_ERROR, "Frame failed validation");
-    }
+    node_send(&node1, &frame);
 
-    CANFrame bad_frame = {
-        .id = 0xFFFE,    // Invalid: > 11-bit
-        .dlc = 10        // Invalid DLC
-    };
+    can_bus_process(&bus);
 
-    if (!can_frame_validate(&bad_frame)) {
-        logger_log(LOG_WARN, "Invalid frame correctly rejected");
-    } else {
-        logger_log(LOG_ERROR, "Invalid frame should NOT pass validation!");
-    }
+    logger_log(LOG_INFO, "Node1 sent: %u", node1.frames_sent);
+    logger_log(LOG_INFO, "Node1 received: %u", node1.frames_received);
+    logger_log(LOG_INFO, "Node2 received: %u", node2.frames_received);
 
     return 0;
 }
