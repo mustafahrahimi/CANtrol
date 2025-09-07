@@ -9,7 +9,7 @@ static void default_on_receive(CANNode* node, const CANFrame* frame) {
     node->frames_received++;
 }
 
-void node_init(CANNode* node, uint32_t node_id, struct CANBus* bus) {
+void node_init(CANNode* node, uint32_t node_id, CANBus* bus) {
     if (!node || !bus) return;
     memset(node, 0, sizeof(CANNode));
     node->node_id = node_id;

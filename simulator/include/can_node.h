@@ -5,11 +5,11 @@
 #include "can_frame.h"
 #include "can_bus.h"
 
-struct CANBus;
+// Use the typedef `CANBus` declared in can_bus.h for consistency
 
 typedef struct CANNode {
     uint32_t node_id;                     
-    struct CANBus* bus;                   
+    CANBus* bus;                          
 
     // Callback called by CANBus when a frame is received
     void (*on_receive)(struct CANNode* node, const CANFrame* frame);
@@ -19,5 +19,5 @@ typedef struct CANNode {
 } CANNode;
 
 static void default_on_receive(CANNode* node, const CANFrame* frame);   
-void node_init(CANNode* node, uint32_t node_id, struct CANBus* bus);
+void node_init(CANNode* node, uint32_t node_id, CANBus* bus);
 bool node_send(CANNode* node, const CANFrame* frame);
