@@ -2,14 +2,10 @@
 
 A **CAN Bus simulator** written in C with a **React dashboard** for real-time visualization of CAN frames.
 
----
-
 ## What is this?
 
 CANtrol helps you learn and experiment with CAN (Controller Area Network) communication without needing physical hardware. 
 It simulates multiple nodes exchanging messages on a CAN bus, and lets you see everything happening live in a web dashboard.
-
----
 
 ## Features
 
@@ -21,8 +17,6 @@ It simulates multiple nodes exchanging messages on a CAN bus, and lets you see e
 - Real-time updates via **WebSocket**, directly connected to the C simulator using TCP over the webserver bridge.
 - Designed with **Docker** in mind for easy deployment.
 - CI pipeline for automated build and validation
-
----
 
 ## Project Structure
 
@@ -37,8 +31,6 @@ CANtrol/
 
 ## Simulator -> Browser
 ![CANtrol Communication](docs/simulator%20diagram.jpg)
-
----
 
 ## Development Notes
 
@@ -58,12 +50,8 @@ docker-compose up --build
 Open your browser at http://localhost:5173 or the port assigned to your vite dev server (check the ports tab if you use VScode after docker-compose build), 
 to view the dashboard with live CAN frames and statistics.
 
----
-
 ## Simulator + dashboard
 ![Sim-dash](docs/simdash.png)
-
----
 
 ## Future Improvements
 
