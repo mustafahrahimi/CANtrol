@@ -5,7 +5,11 @@
 
 static void default_on_receive(CANNode* node, const CANFrame* frame) {
     if (!node || !frame) return;
-    logger_log(LOG_INFO, "Node %u received frame ID=0x%03X dlc=%u", node->node_id, frame->id, frame->dlc);
+
+    export_frame_json(&frame, node->node_id);
+
+    logger_log(LOG_INFO, "Node %u received frame ID=0x%03X dlc=%u", 
+                          node->node_id, frame->id, frame->dlc);
     node->frames_received++;
 }
 

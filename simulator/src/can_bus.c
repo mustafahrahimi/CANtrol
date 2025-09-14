@@ -1,6 +1,7 @@
 #include "logger.h"
 #include "can_bus.h"
 #include "can_node.h"
+#include "frame_export.h"
 #include <string.h>
 
 void can_bus_init(CANBus* bus) {

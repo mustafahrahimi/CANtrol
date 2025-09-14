@@ -2,3 +2,5 @@ build/
 .git/
 .gitignore
 .vscode/
+*.o
+*.log

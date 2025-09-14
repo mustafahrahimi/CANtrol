@@ -25,8 +25,8 @@ void logger_log(LogLevel level, const char* fmt, ...) {
 
     va_list args;
     va_start(args, fmt);
-    printf("%s ", prefix);
-    vprintf(fmt, args);
-    printf("\n");
+    fprintf(stderr, "%s ", prefix);
+    vfprintf(stderr, fmt, args);
+    fprintf(stderr, "\n");
     va_end(args);
 }

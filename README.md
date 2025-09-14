@@ -63,7 +63,7 @@ to view the dashboard with live CAN frames and statistics.
 
 ## Future Improvements
 
-- Moving out frame generation from main to a specific module
+- Moving out frame generation from main to a specific module.
 - Add filtering and sorting of frames by node or ID.
 - Visualize frame traffic with charts.
 - Extend CAN protocol support (e.g., RTR frames, extended IDs).

@@ -5,8 +5,6 @@
 #include "can_frame.h"
 #include "can_bus.h"
 
-// Use the typedef `CANBus` declared in can_bus.h for consistency
-
 typedef struct CANNode {
     uint32_t node_id;                     
     CANBus* bus;                          
@@ -18,6 +16,5 @@ typedef struct CANNode {
     uint32_t frames_received;
 } CANNode;
 
-static void default_on_receive(CANNode* node, const CANFrame* frame);   
 void node_init(CANNode* node, uint32_t node_id, CANBus* bus);
 bool node_send(CANNode* node, const CANFrame* frame);
