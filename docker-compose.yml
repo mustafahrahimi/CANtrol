@@ -1,0 +1,31 @@
+services:
+  simulator:
+    build: ./simulator
+    container_name: cantrol-simulator
+    depends_on:
+      - bridge
+    networks:
+      - cantrol-net
+
+  bridge:
+    build: ./bridge
+    container_name: cantrol-bridge
+    ports:
+      - "8080:8080"
+      - "9000:9000"
+    networks:
+      - cantrol-net
+
+  dashboard:
+    build: ./dashboard
+    container_name: cantrol-dashboard
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_WS_URL=ws://localhost:8080
+    networks:
+      - cantrol-net
+
+networks:
+  cantrol-net:
+    driver: bridge

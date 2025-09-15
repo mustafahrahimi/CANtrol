@@ -7,16 +7,41 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-run-docker:
+  build-compose-services:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Build Docker image
-        run: docker build -t cantrol ./simulator
+      - name: Set up Docker Compose
+        run: |
+          docker version
+          docker compose version
 
-      - name: Run Docker container
-        run: docker run --rm cantrol
+      - name: Build all services
+        run: docker compose -f docker-compose.yml build
+
+      - name: Start services
+        run: docker compose -f docker-compose.yml up -d
+
+      - name: List containers
+        run: docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'
+
+      - name: Check bridge listening ports
+        run: |
+          sleep 5
+          docker logs cantrol-bridge --tail 100 || true
+
+      - name: Check dashboard container
+        run: |
+          docker logs cantrol-dashboard --tail 100 || true
+
+      - name: Check simulator container
+        run: |
+          docker logs cantrol-simulator --tail 100 || true
+
+      - name: Tear down services
+        if: always()
+        run: docker compose -f docker-compose.yml down -v
           
