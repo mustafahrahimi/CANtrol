@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "ws": "^8.18.3"
+  },
+  "name": "cantrol",
+  "version": "1.0.0",
+  "description": "CANtrol is a lightweight CAN Bus simulator written in C, designed to simulate virtual CAN nodes  and messages for testing and development purposes. It includes a modular design with support for  logging and CAN frame validation.",
+  "main": "web-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mustafahrahimi/CANtrol.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mustafahrahimi/CANtrol/issues"
+  },
+  "homepage": "https://github.com/mustafahrahimi/CANtrol#readme"
+}
